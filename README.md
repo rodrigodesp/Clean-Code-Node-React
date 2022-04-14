@@ -7,7 +7,8 @@ Descrição curta do projeto. Sua introdução deve ter cerca de 2 ou 3 linhas. 
 ## 🔧 Funçoes (opcional)
 
 ### Função 01:
-- Descrição Da Função
+- Lista de imagens para readme
+  - https://github.com/Ileriayo/markdown-badges
 
 ### Função 02:
 - Descrição Da Função
