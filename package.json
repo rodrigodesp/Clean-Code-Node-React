@@ -1,0 +1,19 @@
+{
+  "name": "clean-code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/rodrigodesp/Clean-Code-Node-React.git"
+  },
+  "author": "Rodrigo Pereira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rodrigodesp/Clean-Code-Node-React/issues"
+  },
+  "homepage": "https://github.com/rodrigodesp/Clean-Code-Node-React#readme"
+}
