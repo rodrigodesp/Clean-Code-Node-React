@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/rodrigodesp/Clean-Code-Node-React/issues"
   },
-  "homepage": "https://github.com/rodrigodesp/Clean-Code-Node-React#readme"
+  "homepage": "https://github.com/rodrigodesp/Clean-Code-Node-React#readme",
+  "devDependencies": {
+    "git-commit-msg-linter": "^4.1.2"
+  }
 }
