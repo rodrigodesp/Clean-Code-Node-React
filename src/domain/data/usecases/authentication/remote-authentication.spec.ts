@@ -1,3 +1,4 @@
+import { mockAuthentication } from './../../../test/mock-authentication';
 import { HttpPostClientSpy } from './../../test/mock-http-client'
 import { RemoteAuthentication } from './remote-authentication'
 import { randUrl } from '@ngneat/falso';
@@ -20,7 +21,15 @@ describe('RemoteAuthentication', () => {
     test('Should call HttpPostClient with correct URL', async () => {        
         const url = randUrl()
         const {sut, httpPostClientSpy} = makeSut(url)
-        await sut.auth()
+        await sut.auth(mockAuthentication())
         expect(httpPostClientSpy.url).toBe(url)
+    })
+
+    test('Should call HttpPostClient with correct body', async () => {        
+        const url = randUrl()
+        const {sut, httpPostClientSpy} = makeSut()
+        const mockAuthetication = mockAuthentication()
+        await sut.auth(mockAuthetication)
+        expect(httpPostClientSpy.body).toEqual(mockAuthetication)
     })
 })
