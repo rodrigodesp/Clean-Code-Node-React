@@ -11,13 +11,9 @@
       "paths": {
         "@/*": ["*"]
       },
-      "allowJs": true,
-      "skipLibCheck": true,
-      "allowSyntheticDefaultImports": true,
-      "strict": true,
-      "forceConsistentCasingInFileNames": true,      
-      "resolveJsonModule": true,
-      "noEmit": true
+      "allowJs": true,      
+      //"strict": true,     
+      "resolveJsonModule": true
     },
     "include": ["src"],
     "exclude": ["src/main/test/cypress"]
