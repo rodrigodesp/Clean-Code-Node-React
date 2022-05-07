@@ -6,7 +6,7 @@
     },
     "extends": [
       "standard-with-typescript",
-      "plugin:react/recommend"
+      "plugin:react/recommended"
     ],
     "plugins": ["react"],
     "parserOptions": {
@@ -15,14 +15,8 @@
     "rules": {
         "indent": "off",
         "@typescript-eslint/consistent-type-definitions": "off",
-        "@typescript-eslint/strict-boolean-expressions": [
-          4,
-          {
-              "allowString" : false,
-              "allowNumber" : false
-          }
-      ],
-      "react/jsx-uses-react": "error",
-      "react/jsx-uses-vars": "error"
+        "@typescript-eslint/strict-boolean-expressions": "off",
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error"
     }
 }
