@@ -3,10 +3,9 @@ import { HttpPostClientSpy } from '@/data/test/mock-http-client';
 import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error';
 import { UnexpectedError } from '@/domain/errors/unexpected-error';
 import { AccountModel } from '@/domain/models/account-model';
-import { mockAuthentication } from '@/domain/test/mock-account';
+import { mockAccountModel, mockAuthentication } from '@/domain/test/mock-account';
 import { AuthenticationParams } from '@/domain/usecases/authentication';
 import { randUrl } from '@ngneat/falso';
-import { mockAccountModel } from './../../../domain/test/mock-account';
 import { RemoteAuthentication } from './remote-authentication';
 
 
