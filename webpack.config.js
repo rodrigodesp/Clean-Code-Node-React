@@ -1,49 +1,73 @@
 const path = require('path')
-const { CleanWebpackPlugin } = require('çlean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
     mode: 'development',
-    entry: './src/main/index.js',
+    entry: './src/main/index.tsx',
     output: {
-        path: path.join(__dirname, 'public/js'),
-        publicPath: '/public/js',
-        fileName: 'bundle.js'
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.js',
+        publicPath: '/'
     },
     resolve: {
-        extensions: ['.ts','.tsx','.js','scss'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', 'scss'],
         alias: {
-            '@': path.join(__dirname, 'src')
+            '@': path.resolve(__dirname, 'src')
         }
     },
     module: {
-        rules: [{
-            test: /\.ts(x?)$/,
-            loader: 'ts-loader',
-            exclude: /node-module/ 
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: ['babel-loader']
+            },
+            {
+                test: /\.html$/,
+                use: {
+                    loader: 'html-loader'
+                }
+            },
+            {
+                test: /\.ts(x?)$/,
+                exclude: /node_modules/,
+                loader: 'ts-loader'
         }, {
-            test: /\.scss$/, 
-            use:[{
+            test: /\.scss$/,
+            use: [
+            {
                 loader: 'style-loader'
-            }, {
+            },
+            {
                 loader: 'css-loader',
                 options: {
                     modules: true
                 }
-            }, {
+            },
+            {
                 loader: 'sass-loader'
-            }]
+            }
+            ]
+        },
+        {
+            test: /\.(jpg|jpeg|png|gif|mp3|svg)$/,
+            use: ['file-loader']
         }]
     },
     devServer: {
-        contentBase: './public',
-        writeToDisk: true,
-        historyApiFallback: true
-    },
-    externals: {
-        react: 'React',
-        'react-dom': 'ReactDOM'
+        port: 9000,
+        compress: true,
+        hot: true,
+        static: path.join(__dirname, 'dist'),
+        historyApiFallback: true,
+        open: true
     },
     plugins: [
-        new CleanWebpackPlugin()
+        new HtmlWebpackPlugin({
+            template: './public/index.html',
+            filename: 'index.html'
+        }),
+        new Dotenv()
     ]
 }
