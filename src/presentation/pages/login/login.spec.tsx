@@ -1,55 +1,70 @@
-import { ValidationSpy } from '@/presentation/test'
+import { ValidationStub } from '@/presentation/test'
 import { cleanup, fireEvent, render, RenderResult } from '@testing-library/react'
 import React from 'react'
 import Login from './login'
 
 type SutTypes = {
   sut: RenderResult
-  validationSpy: ValidationSpy
+  validationStub: ValidationStub
 }
 
 const makeSut = (): SutTypes => {
-  const validationSpy = new ValidationSpy()
-  const sut = render(<Login validation={validationSpy} />)
+  const validationStub = new ValidationStub()
+  const errorMessage = 'Contem erro'
+  validationStub.errorMessage = errorMessage
+  const sut = render(<Login validation={validationStub} />)
   return {
     sut,
-    validationSpy
+    validationStub
   }
 }
 
 describe('Login Component', () => {
   afterEach(cleanup)
   test('Validate the initial state when entering the page login page', () => {
-    const { sut } = makeSut()
+    const { sut, validationStub } = makeSut()
     const errorWrap = sut.getByTestId('error-wrap')
     expect(errorWrap.childElementCount).toBe(0)
     const submitButton = sut.getByTestId('submit') as HTMLButtonElement
     expect(submitButton.disabled).toBe(true)
 
     const emailStatus = sut.getByTestId('email-status')
-    expect(emailStatus.title).toBe('Campo obrigatório')
+    expect(emailStatus.title).toBe(validationStub.errorMessage)
     expect(emailStatus.textContent).toBe('🔴')
 
     const passwordStatus = sut.getByTestId('password-status')
-    expect(passwordStatus.title).toBe('Campo obrigatório')
+    expect(passwordStatus.title).toBe(validationStub.errorMessage)
     expect(passwordStatus.textContent).toBe('🔴')
   })
 
-  test('Should call Validation with correct email', () => {
-    const { sut, validationSpy } = makeSut()
+  test('Should show error if Validation email fails', () => {
+    const { sut, validationStub } = makeSut()
     const emailInput = sut.getByTestId('email')
-    const emailGenerico = 'emailGen' // randEmailProvider()
+    const emailGenerico = 'email'
     fireEvent.input(emailInput, { target: { value: emailGenerico } })
-    expect(validationSpy.fieldName).toBe('email')
-    expect(validationSpy.fieldValue).toBe(emailGenerico)
+    const emailStatus = sut.getByTestId('email-status')
+    expect(emailStatus.title).toBe(validationStub.errorMessage)
+    expect(emailStatus.textContent).toBe('🔴')
   })
 
-  test('Should call Validation with correct password', () => {
-    const { sut, validationSpy } = makeSut()
+  test('Should show error if Validation password fails', () => {
+    const { sut, validationStub } = makeSut()
     const passwordInput = sut.getByTestId('password')
     const passwordGenerico = 'password'
+    const passwordStatus = sut.getByTestId('password-status')
     fireEvent.input(passwordInput, { target: { value: passwordGenerico } })
-    expect(validationSpy.fieldName).toBe('password')
-    expect(validationSpy.fieldValue).toBe(passwordGenerico)
+    expect(passwordStatus.title).toBe(validationStub.errorMessage)
+    expect(passwordStatus.textContent).toBe('🔴')
+  })
+
+  test('Should displayed green ball if the password was correct', () => {
+    const { sut, validationStub } = makeSut()
+    validationStub.errorMessage = null
+    const passwordInput = sut.getByTestId('password')
+    const passwordGenerico = 'password'
+    const passwordStatus = sut.getByTestId('password-status')
+    fireEvent.input(passwordInput, { target: { value: passwordGenerico } })
+    expect(passwordStatus.title).toBe('Sucesso!')
+    expect(passwordStatus.textContent).toBe('🟢')
   })
 })
