@@ -50,8 +50,14 @@ describe('Login Component', () => {
     const emailInput = sut.getByTestId('email')
     const emailGenerico = 'any_email'// randEmail()
     fireEvent.input(emailInput, { target: { value: emailGenerico } })
-    expect(validationSpy.input).toEqual({
-      email: emailGenerico
-    })
+    expect(validationSpy.input).toEqual({ email: emailGenerico })
+  })
+
+  test('Should call Validation with correct password', () => {
+    const { sut, validationSpy } = makeSut()
+    const passwordInput = sut.getByTestId('password')
+    const passwordGenerico = 'any_password'// randEmail()
+    fireEvent.input(passwordInput, { target: { value: passwordGenerico } })
+    expect(validationSpy.input).toEqual({ password: passwordGenerico })
   })
 })
