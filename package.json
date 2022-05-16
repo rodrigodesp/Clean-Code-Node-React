@@ -41,6 +41,8 @@
     "@types/webpack-dev-server": "^4.7.2",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "babel-loader": "^8.2.5",
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
     "clean-webpack-plugin": "^4.0.0",
     "css-loader": "^6.7.1",
     "eslint": "^7.12.1",
@@ -74,6 +76,7 @@
     "@babel/runtime": "^7.17.9",
     "axios": "^0.27.2",
     "dotenv-webpack": "^7.1.0",
+    "esm": "^3.2.25",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router-dom": "^6.3.0"

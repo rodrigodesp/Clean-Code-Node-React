@@ -38,7 +38,7 @@ describe('Login Component', () => {
   test('Should call Validation with correct email', () => {
     const { sut, validationSpy } = makeSut()
     const emailInput = sut.getByTestId('email')
-    const emailGenerico = randEmail()
+    const emailGenerico = 'emailGen' // randEmailProvider()
     fireEvent.input(emailInput, { target: { value: emailGenerico } })
     expect(validationSpy.fieldName).toBe('email')
     expect(validationSpy.fieldValue).toBe(emailGenerico)
@@ -47,7 +47,7 @@ describe('Login Component', () => {
   test('Should call Validation with correct password', () => {
     const { sut, validationSpy } = makeSut()
     const passwordInput = sut.getByTestId('password')
-    const passwordGenerico = 'any_password'// randEmail()
+    const passwordGenerico = 'password'
     fireEvent.input(passwordInput, { target: { value: passwordGenerico } })
     expect(validationSpy.fieldName).toBe('password')
     expect(validationSpy.fieldValue).toBe(passwordGenerico)
