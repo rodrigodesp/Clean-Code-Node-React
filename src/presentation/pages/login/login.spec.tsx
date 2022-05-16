@@ -57,6 +57,17 @@ describe('Login Component', () => {
     expect(passwordStatus.textContent).toBe('🔴')
   })
 
+  test('Should displayed green ball if the email was correct', () => {
+    const { sut, validationStub } = makeSut()
+    validationStub.errorMessage = null
+    const emailInput = sut.getByTestId('email')
+    const emailGenerico = 'email'
+    const emailStatus = sut.getByTestId('email-status')
+    fireEvent.input(emailInput, { target: { value: emailGenerico } })
+    expect(emailStatus.title).toBe('Sucesso!')
+    expect(emailStatus.textContent).toBe('🟢')
+  })
+
   test('Should displayed green ball if the password was correct', () => {
     const { sut, validationStub } = makeSut()
     validationStub.errorMessage = null
