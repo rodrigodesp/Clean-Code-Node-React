@@ -5,61 +5,63 @@ import Login from './login'
 
 type SutTypes = {
   sut: RenderResult
-  validationStub: ValidationStub
 }
 
-const makeSut = (): SutTypes => {
+type SutParams = {
+  validationError: string
+}
+
+const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
-  const errorMessage = 'Contem erro'
-  validationStub.errorMessage = errorMessage
+  validationStub.errorMessage = params?.validationError
   const sut = render(<Login validation={validationStub} />)
   return {
-    sut,
-    validationStub
+    sut
   }
 }
+
+const validationError = 'contem erro'
 
 describe('Login Component', () => {
   afterEach(cleanup)
   test('Validate the initial state when entering the page login page', () => {
-    const { sut, validationStub } = makeSut()
+    const { sut } = makeSut({ validationError })
     const errorWrap = sut.getByTestId('error-wrap')
     expect(errorWrap.childElementCount).toBe(0)
     const submitButton = sut.getByTestId('submit') as HTMLButtonElement
     expect(submitButton.disabled).toBe(true)
 
     const emailStatus = sut.getByTestId('email-status')
-    expect(emailStatus.title).toBe(validationStub.errorMessage)
+    expect(emailStatus.title).toBe(validationError)
     expect(emailStatus.textContent).toBe('🔴')
 
     const passwordStatus = sut.getByTestId('password-status')
-    expect(passwordStatus.title).toBe(validationStub.errorMessage)
+    expect(passwordStatus.title).toBe(validationError)
     expect(passwordStatus.textContent).toBe('🔴')
   })
 
   test('Should show error if Validation email fails', () => {
-    const { sut, validationStub } = makeSut()
+    const { sut } = makeSut({ validationError })
     const emailInput = sut.getByTestId('email')
     const emailGenerico = 'email'
     fireEvent.input(emailInput, { target: { value: emailGenerico } })
     const emailStatus = sut.getByTestId('email-status')
-    expect(emailStatus.title).toBe(validationStub.errorMessage)
+    expect(emailStatus.title).toBe(validationError)
     expect(emailStatus.textContent).toBe('🔴')
   })
 
   test('Should show error if Validation password fails', () => {
-    const { sut, validationStub } = makeSut()
+    const { sut } = makeSut({ validationError })
     const passwordInput = sut.getByTestId('password')
     const passwordGenerico = 'password'
     const passwordStatus = sut.getByTestId('password-status')
     fireEvent.input(passwordInput, { target: { value: passwordGenerico } })
-    expect(passwordStatus.title).toBe(validationStub.errorMessage)
+    expect(passwordStatus.title).toBe(validationError)
     expect(passwordStatus.textContent).toBe('🔴')
   })
 
   test('Should displayed green ball if the email was correct', () => {
-    const { sut, validationStub } = makeSut()
-    validationStub.errorMessage = null
+    const { sut } = makeSut()
     const emailInput = sut.getByTestId('email')
     const emailGenerico = 'email'
     const emailStatus = sut.getByTestId('email-status')
@@ -69,8 +71,7 @@ describe('Login Component', () => {
   })
 
   test('Should displayed green ball if the password was correct', () => {
-    const { sut, validationStub } = makeSut()
-    validationStub.errorMessage = null
+    const { sut } = makeSut()
     const passwordInput = sut.getByTestId('password')
     const passwordGenerico = 'password'
     const passwordStatus = sut.getByTestId('password-status')
@@ -80,8 +81,7 @@ describe('Login Component', () => {
   })
 
   test('Should enable submit button if the form is valid', () => {
-    const { sut, validationStub } = makeSut()
-    validationStub.errorMessage = null
+    const { sut } = makeSut()
 
     const emailInput = sut.getByTestId('email')
     const emailGenerico = 'email'
