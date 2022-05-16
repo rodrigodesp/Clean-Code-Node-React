@@ -4,10 +4,10 @@ import React from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 type SutTypes = {
-  validationSpy: ValidationSpy
+  validationStub: ValidationStub
 }
 
-class ValidationSpy implements Validation {
+class ValidationStub implements Validation {
   errorMessage: string
   fieldName: string
   fieldValue: string
@@ -19,13 +19,13 @@ class ValidationSpy implements Validation {
   }
 }
 
-const validationSpy = new ValidationSpy()
+const validationStub = new ValidationStub()
 
 const Router: React.FC = () => {
   return (
     <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login validation={validationSpy} />} />
+          <Route path="/" element={<Login validation={validationStub} />} />
         </Routes>
     </BrowserRouter>
   )
