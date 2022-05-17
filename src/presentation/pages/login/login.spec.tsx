@@ -3,7 +3,10 @@ import { ValidationStub } from '@/presentation/test'
 import { AuthenticationSpy } from '@/presentation/test/mock-authentication'
 import { cleanup, fireEvent, render, RenderResult, screen, waitFor } from '@testing-library/react'
 import faker from 'faker'
+import { createMemoryHistory } from 'history'
+import 'jest-localstorage-mock'
 import React from 'react'
+import { Router } from 'react-router-dom'
 import Login from './login'
 
 type SutTypes = {
@@ -14,12 +17,16 @@ type SutTypes = {
 type SutParams = {
   validationError: string
 }
-
+const history = createMemoryHistory()
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   const authenticationSpy = new AuthenticationSpy()
   validationStub.errorMessage = params?.validationError
-  const sut = render(<Login validation={validationStub} authentication={authenticationSpy}/>)
+  const sut = render(
+    <Router navigator={history} location={'/'}>
+      <Login validation={validationStub} authentication={authenticationSpy}/>
+    </Router >
+  )
   return {
     sut,
     authenticationSpy
@@ -56,6 +63,10 @@ const validationError = 'contem erro'
 
 describe('Login Component', () => {
   afterEach(cleanup)
+  beforeEach(() => localStorage.clear())
+  // beforeAll(() => server.listen())
+  // afterAll(() => server.close())
+
   test('Validate the initial state when entering the page login page', () => {
     const { sut } = makeSut({ validationError })
     const errorWrap = sut.getByTestId('error-wrap')
@@ -142,5 +153,21 @@ describe('Login Component', () => {
     const mainError = sut.getByTestId('main-error')
     expect(mainError.textContent).toBe(error.message)
     expect(errorWrap.childElementCount).toBe(1)
+  })
+
+  test('Should add accessToken to localstorage on success', async () => {
+    const { sut, authenticationSpy } = makeSut()
+    simulateValidSubmit(sut)
+    await waitFor(() => screen.getByTestId('form'))
+    expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', authenticationSpy.account.accessToken)
+    // expect(history.location.pathname).toBe('/signup')
+  })
+
+  test('Should go to signup page', async () => {
+    const { sut } = makeSut()
+    const register = sut.getByTestId('signup')
+    fireEvent.click(register)
+    expect(history.index).toBe(1)
+    expect(history.location.pathname).toBe('/signup')
   })
 })
