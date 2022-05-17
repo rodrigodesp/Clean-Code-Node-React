@@ -1,7 +1,6 @@
-import { HttpPostParams } from '@/data/protocols/http/http-post-client';
-import { randPost, randUrl } from '@ngneat/falso';
-
+import { HttpPostParams } from '@/data/protocols/http/http-post-client'
+import faker from 'faker'
 export const mockPostRequest = (): HttpPostParams<any> => ({
-    url: randUrl(),
-    body: randPost()
+  url: faker.internet.url(),
+  body: faker.random.objectElement
 })
