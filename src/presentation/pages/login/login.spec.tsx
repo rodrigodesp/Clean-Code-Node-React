@@ -1,10 +1,23 @@
+import { AccountModel } from '@/domain/models/account-model'
+import { mockAccountModel } from '@/domain/test/mock-account'
+import { Authentication, AuthenticationParams } from '@/domain/usecases/authentication'
 import { ValidationStub } from '@/presentation/test'
 import { cleanup, fireEvent, render, RenderResult } from '@testing-library/react'
 import React from 'react'
 import Login from './login'
 
+class AuthenticationSpy implements Authentication {
+  account = mockAccountModel()
+  params: AuthenticationParams
+  async auth (params: AuthenticationParams): Promise<AccountModel> {
+    this.params = params
+    return await Promise.resolve(this.account)
+  }
+}
+
 type SutTypes = {
   sut: RenderResult
+  authenticationSpy: AuthenticationSpy
 }
 
 type SutParams = {
@@ -13,10 +26,12 @@ type SutParams = {
 
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
+  const authenticationSpy = new AuthenticationSpy()
   validationStub.errorMessage = params?.validationError
-  const sut = render(<Login validation={validationStub} />)
+  const sut = render(<Login validation={validationStub} authentication={authenticationSpy}/>)
   return {
-    sut
+    sut,
+    authenticationSpy
   }
 }
 
@@ -127,5 +142,33 @@ describe('Login Component', () => {
 
     const spinner = sut.getByTestId('spinner')
     expect(spinner).toBeTruthy()
+  })
+
+  test('Should call Authentication with correct values', () => {
+    const { sut, authenticationSpy } = makeSut()
+
+    const emailInput = sut.getByTestId('email')
+    const email = 'email'
+    fireEvent.input(emailInput, { target: { value: email } })
+
+    const passwordInput = sut.getByTestId('password')
+    const password = 'password'
+    fireEvent.input(passwordInput, { target: { value: password } })
+
+    const passwordStatus = sut.getByTestId('password-status')
+    expect(passwordStatus.title).toBe('Sucesso!')
+    expect(passwordStatus.textContent).toBe('🟢')
+
+    const emailStatus = sut.getByTestId('email-status')
+    expect(emailStatus.title).toBe('Sucesso!')
+    expect(emailStatus.textContent).toBe('🟢')
+
+    const submitButton = sut.getByTestId('submit')
+    fireEvent.submit(submitButton)
+
+    expect(authenticationSpy.params).toEqual({
+      email,
+      password
+    })
   })
 })
