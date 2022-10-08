@@ -15,4 +15,9 @@ describe('ValidationBuilder', () => {
     const validation = sut.field('any_field').email().build()
     expect(validation).toEqual([new EmailValidation('any_field')])
   })
+
+  test('Should return MinLengthValidation', () => {
+    const validation = sut.field('any_field').minLength(5).build()
+    expect(validation).toEqual([new MinLengthValidation('any_field', 5)])
+  })
 })
