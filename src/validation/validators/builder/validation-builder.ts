@@ -20,6 +20,11 @@ export class ValidationBuilder {
     return this
   }
 
+  minLength (value: number): ValidationBuilder {
+    this.validations.push(new MinLengthValidation(this.fieldName, value))
+    return this
+  }
+
   email (): ValidationBuilder {
     this.validations.push(new EmailValidation(this.fieldName))
     return this
