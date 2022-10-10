@@ -1,6 +1,6 @@
 import { Authentication } from '@/domain/usecases/authentication'
 import { Footer, FormStatus, Header, Input } from '@/presentation/components/'
-import Context from '@/presentation/components/context/form-context'
+import Context from '@/presentation/context/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
