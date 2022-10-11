@@ -4,7 +4,7 @@ import {
   MinLengthValidation
 } from '@/validation/validators'
 import { ValidationBuilder as sut } from './validation-builder'
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 const field = faker.database.column()
 const length = faker.datatype.number()

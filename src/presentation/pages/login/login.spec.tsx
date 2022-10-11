@@ -9,7 +9,7 @@ import {
   screen,
   waitFor
 } from '@testing-library/react'
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 import { createMemoryHistory } from 'history'
 import 'jest-localstorage-mock'
 import React from 'react'

@@ -1,6 +1,6 @@
 import { InvalidFieldError } from '@/validation/errors/'
 import { EmailValidation } from './email-validation'
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 
 describe('EmailValidation', () => {
   test('Should return error if email is invalid', () => {

@@ -8,7 +8,7 @@ import {
   mockAuthentication
 } from '@/domain/test/mock-account'
 import { AuthenticationParams } from '@/domain/usecases/authentication'
-import faker from 'faker'
+import { faker } from '@faker-js/faker'
 import { RemoteAuthentication } from './remote-authentication'
 
 type SutTypes = {
