@@ -36,8 +36,8 @@
     "@types/faker": "^5.1.2",
     "@types/jest": "^27.5.1",
     "@types/node": "^17.0.33",
-    "@types/react": "^18.0.9",
-    "@types/react-dom": "^18.0.4",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
     "@types/react-router-dom": "^5.3.3",
     "@types/webpack-dev-server": "^4.7.2",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
@@ -83,9 +83,10 @@
     "axios": "^0.27.2",
     "dotenv-webpack": "^7.1.0",
     "esm": "^3.2.25",
-    "react": "^18.1.0",
-    "react-dom": "^18.1.0",
-    "react-router-dom": "^6.3.0"
+    "history": "^5.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.2"
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
