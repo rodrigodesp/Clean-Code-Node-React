@@ -9,6 +9,7 @@
     "test:watch": "npm test -- --watch",
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
+    "check": "npx npm-check -u -s",
     "prepare": "husky install",
     "lint": "eslint .",
     "lint:fix": "eslint --fix --ext .js,.jsx ."
