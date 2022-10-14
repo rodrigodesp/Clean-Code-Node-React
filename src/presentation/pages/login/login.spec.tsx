@@ -212,6 +212,21 @@ describe('Login Component', () => {
     expect(history.location.pathname).toBe('/')
   })
 
+  test('Should present error if SaveAccessToken fails', async () => {
+    const { sut, saveAccessTokenMock } = makeSut()
+    const error = new InvalidCredentialsError()
+    jest
+      .spyOn(saveAccessTokenMock, 'save')
+      .mockReturnValueOnce(Promise.reject(error))
+    await simulateValidSubmit(sut)
+
+    await waitFor(() => screen.getByTestId('main-error'))
+    const mainError = sut.getByTestId('main-error')
+
+    testElementText(sut, 'main-error', error.message)
+    testErrorWrapChildCount(sut, 1)
+  })
+
   test('Should go to signup page', async () => {
     const { sut } = makeSut()
     const register = sut.getByTestId('signup')
