@@ -1,0 +1,100 @@
+@startuml
+
+ title <b>Authetication - Clean Architeture</b>
+
+ package "Infra" {
+   class AxiosHttpClient {
+     + post: (url: string, body: any) => Promise<HttpResponse>     
+   }   
+ }
+
+ Axios <-right- AxiosHttpClient
+
+package "Data" {
+    class RemoteAuthentication {
+        + auth: (params: Authentication.Params) => Promise<Authentication.Model>
+    }
+    
+    interface HttpPostClient {
+        + post: (url: string, body: any) => Promise<HttpResponse>
+    }
+
+    class HttpResponse {
+        + statusCode: number
+        + body?: any
+    }
+
+    HttpPostClient <-down- RemoteAuthentication
+    HttpResponse <-down- HttpPostClient 
+    HttpResponse <-right- AxiosHttpClient
+}
+
+package "Domain" {  
+    
+    interface Authentication {
+      auth: (params: AuthenticationParams) => Promise<AuthenticationModel>
+    }
+    
+        
+    RemoteAuthentication -down-> Authentication
+    AuthenticationModel -up-> Authentication
+    AuthenticationParams -up-> Authentication
+}
+
+package "Presentation" {    
+    class Login {
+        + auth: () => void
+    }
+
+    interface IValidation {
+        + validate: (input: object) => string
+    }
+    
+    Login <-right- Authentication
+    Login -right-> IValidation
+    
+
+}
+
+package "Validation" {    
+    
+
+    interface FieldValidation {
+        + validate: (input: object) => string
+    }
+
+    class ValidationBuilder {
+        constructor: (fieldName: string, FieldValidation: validations[])
+        {static} field: (fieldName: string) => ValidationBuilder
+        + required: () => ValidationBuilder
+        + email: () => ValidationBuilder
+        + build: () => FieldValidation[]
+    }
+
+    class MinLengthValidation {
+        + constructor: (field: string, minLength: number)
+        + validate: (input: object) => string
+    }
+    
+    class EmailFiledValidation {
+        + validate: (input: object) => string
+    }
+    class RequiredFieldValidation {
+        + validate: (input: object) => string
+    }
+
+    class ValidationComposite {
+        + constructor: (validations: IValidation[])
+        {static} + build: (validators : FieldValidation[]) => ValidationComposite
+        + validate: (fieldName: string, fieldValue: string) => string
+    }
+
+    ValidationComposite -up-|> IValidation    
+    FieldValidation <-up- ValidationBuilder
+    FieldValidation <-down- EmailFiledValidation
+    FieldValidation <-down- RequiredFieldValidation
+    FieldValidation <-down- MinLengthValidation
+       
+}
+
+@enduml

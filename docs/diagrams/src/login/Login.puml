@@ -1,0 +1,45 @@
+@startuml
+
+
+ title <b>Authetication - Clean Architeture</b>
+
+ package "Infra" #pink <<mexicoStyle>> {
+   class AxiosHttpClient   
+ }
+
+ Axios <-right- AxiosHttpClient
+
+package "Data" #LightGreen {
+    class RemoteAuthentication
+    
+    interface HttpPostClient
+
+    HttpPostClient <-right- RemoteAuthentication    
+    HttpPostClient <-up- AxiosHttpClient
+}
+
+package "Domain" #LightBlue {  
+    
+    interface Authentication 
+    RemoteAuthentication -down-> Authentication    
+}
+
+package "Presentation" #MediumPurple {    
+    class Login
+    interface IValidation
+    
+    Login -right-> Authentication
+    Login -right-> IValidation    
+}
+
+package "Validation" #Yellow {    
+         
+    class EmailFiledValidation
+    class RequiredFieldValidation
+          
+    IValidation <-up- EmailFiledValidation
+    IValidation <-up- RequiredFieldValidation    
+       
+}
+
+@enduml
