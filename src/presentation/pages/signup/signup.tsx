@@ -1,9 +1,14 @@
 import { Footer, FormStatus, Header, Input } from '@/presentation/components/'
 import FormContext from '@/presentation/context/form/form-context'
+import { Validation } from '@/presentation/protocols/validation'
 import React from 'react'
 import Styles from './signup-styles.scss'
 
-const SignUp: React.FC = () => {
+type Props = {
+  validation: Validation
+}
+
+const SignUp: React.FC<Props> = ({ validation }: Props) => {
   const [state] = React.useState({
     isLoading: false,
     mainError: '',
