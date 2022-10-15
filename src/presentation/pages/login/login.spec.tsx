@@ -70,32 +70,32 @@ describe('Login Component', () => {
 
   test('Should show error if Validation email fails', () => {
     const { sut } = makeSut({ validationError })
-    Helper.populateEmailField(sut)
+    Helper.populateField(sut, 'email', faker.internet.email())
     Helper.testStatusForField(sut, 'email', validationError)
   })
 
   test('Should show error if Validation password fails', () => {
     const { sut } = makeSut({ validationError })
-    Helper.populatePasswordField(sut)
+    Helper.populateField(sut, 'password', faker.internet.password())
     Helper.testStatusForField(sut, 'password', validationError)
   })
 
   test('Should displayed green ball if the email was correct', () => {
     const { sut } = makeSut()
-    Helper.populateEmailField(sut)
+    Helper.populateField(sut, 'email', faker.internet.email())
     Helper.testStatusForField(sut, 'email')
   })
 
   test('Should displayed green ball if the password was correct', () => {
     const { sut } = makeSut()
-    Helper.populatePasswordField(sut)
+    Helper.populateField(sut, 'password', faker.internet.password())
     Helper.testStatusForField(sut, 'password')
   })
 
   test('Should enable submit button if the form is valid', () => {
     const { sut } = makeSut()
-    Helper.populateEmailField(sut)
-    Helper.populatePasswordField(sut)
+    Helper.populateField(sut, 'email', faker.internet.email())
+    Helper.populateField(sut, 'password', faker.internet.password())
     Helper.testButtonIsDisabled(sut, 'submit', false)
   })
 
@@ -161,7 +161,6 @@ describe('Login Component', () => {
     await Helper.simulateValidSubmit(sut)
 
     await waitFor(() => screen.getByTestId('main-error'))
-    const mainError = sut.getByTestId('main-error')
 
     Helper.testElementText(sut, 'main-error', error.message)
     Helper.testChildCount(sut, 'error-wrap', 1)
