@@ -6,29 +6,23 @@ export const simulateValidSubmit = async (
   email = faker.internet.email(),
   password = faker.internet.password()
 ): Promise<void> => {
-  populateEmailField(sut, email)
-  populatePasswordField(sut, password)
+  populateField(sut, 'email', email)
+  populateField(sut, 'password', password)
 
   const form = sut.getByTestId('form')
   fireEvent.submit(form)
   await waitFor(() => form)
 }
 
-export const populateEmailField = (
+export const populateField = (
   sut: RenderResult,
-  email = faker.internet.email()
+  fieldName: string,
+  value = faker.random.word()
 ): void => {
-  const emailInput = sut.getByTestId('email')
-  fireEvent.input(emailInput, { target: { value: email } })
+  const input = sut.getByTestId(fieldName)
+  fireEvent.input(input, { target: { value: value } })
 }
 
-export const populatePasswordField = (
-  sut: RenderResult,
-  password = faker.internet.password()
-): void => {
-  const passwordInput = sut.getByTestId('password')
-  fireEvent.input(passwordInput, { target: { value: password } })
-}
 export const testStatusForField = (
   sut: RenderResult,
   fieldName: string,
