@@ -62,25 +62,35 @@ describe('Signup Component', () => {
 
   test('Should displayed green ball if the name was correct', () => {
     const { sut } = makeSut()
-    Helper.populateField(sut, 'name', faker.internet.userName())
+    Helper.populateField(sut, 'name')
     Helper.testStatusForField(sut, 'name')
   })
 
   test('Should displayed green ball if the email was correct', () => {
     const { sut } = makeSut()
-    Helper.populateField(sut, 'email', faker.internet.email())
+    Helper.populateField(sut, 'email')
     Helper.testStatusForField(sut, 'email')
   })
 
   test('Should displayed green ball if the password was correct', () => {
     const { sut } = makeSut()
-    Helper.populateField(sut, 'password', faker.internet.password())
+    Helper.populateField(sut, 'password')
     Helper.testStatusForField(sut, 'password')
   })
 
   test('Should displayed green ball if the password confirmation was correct', () => {
     const { sut } = makeSut()
-    Helper.populateField(sut, 'passwordConfirmation', faker.internet.password())
+    Helper.populateField(sut, 'passwordConfirmation')
     Helper.testStatusForField(sut, 'passwordConfirmation')
+  })
+
+  test('Should enable submit button if the form is valid', () => {
+    const password = faker.random.words()
+    const { sut } = makeSut()
+    Helper.populateField(sut, 'name')
+    Helper.populateField(sut, 'email')
+    Helper.populateField(sut, 'password', password)
+    Helper.populateField(sut, 'passwordConfirmation', password)
+    Helper.testButtonIsDisabled(sut, 'submit', false)
   })
 })

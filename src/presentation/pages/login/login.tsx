@@ -62,26 +62,13 @@ const Login: React.FC<Props> = ({
     <div className={Styles.login}>
       <Header />
       <FormContext.Provider value={{ state, setState }}>
-        <form
-          data-testid="form"
-          className={Styles.form}
-          onSubmit={handleSubmit}
-        >
+        <form data-testid="form" className={Styles.form} onSubmit={handleSubmit}>
           <h2>Login</h2>
           <Input type="email" name="email" placeholder="Digite seu e-mail" />
-          <Input
-            type="password"
-            name="password"
-            placeholder="Digite sua senha"
-          />
-          <button
-            data-testid="submit"
-            className={Styles.submit}
+          <Input type="password" name="password" placeholder="Digite sua senha"/>
+          <button data-testid="submit" className={Styles.submit}
             disabled={!!state.emailError || !!state.passwordError}
-            type="submit"
-          >
-            Entrar
-          </button>
+            type="submit">Entrar</button>
           <Link data-testid="signup" to="/signup" className={Styles.link}>
             Criar Conta
           </Link>
