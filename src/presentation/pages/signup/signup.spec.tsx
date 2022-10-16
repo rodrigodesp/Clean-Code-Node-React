@@ -3,6 +3,7 @@ import { createMemoryHistory } from 'history'
 import { SignUp } from '@/presentation/pages'
 import { Helper, ValidationStub } from '@/presentation/test'
 import React from 'react'
+import { faker } from '@faker-js/faker'
 
 type SutTypes = {
   sut: RenderResult
@@ -21,17 +22,23 @@ const makeSut = (params?: SutParams): SutTypes => {
   }
 }
 
-const validationError = 'Campo Obrigatório'
+const validationError = faker.random.words()
 
 describe('Signup Component', () => {
   afterEach(cleanup)
   test('The initial state when entering the signup page', () => {
-    const { sut } = makeSut()
+    const { sut } = makeSut({ validationError })
     Helper.testChildCount(sut, 'error-wrap', 0)
     Helper.testButtonIsDisabled(sut, 'submit', true)
     Helper.testStatusForField(sut, 'name', validationError)
-    Helper.testStatusForField(sut, 'email', validationError)
-    Helper.testStatusForField(sut, 'password', validationError)
-    Helper.testStatusForField(sut, 'passwordConfirmation', validationError)
+    Helper.testStatusForField(sut, 'email', 'Campo Obrigatório')
+    Helper.testStatusForField(sut, 'password', 'Campo Obrigatório')
+    Helper.testStatusForField(sut, 'passwordConfirmation', 'Campo Obrigatório')
+  })
+
+  test('Should show name error if Validation fails', () => {
+    const { sut } = makeSut({ validationError })
+    Helper.populateField(sut, 'name')
+    Helper.testStatusForField(sut, 'name', validationError)
   })
 })
