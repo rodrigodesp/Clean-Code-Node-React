@@ -77,4 +77,10 @@ describe('Signup Component', () => {
     Helper.populateField(sut, 'password', faker.internet.password())
     Helper.testStatusForField(sut, 'password')
   })
+
+  test('Should displayed green ball if the password confirmation was correct', () => {
+    const { sut } = makeSut()
+    Helper.populateField(sut, 'passwordConfirmation', faker.internet.password())
+    Helper.testStatusForField(sut, 'passwordConfirmation')
+  })
 })
