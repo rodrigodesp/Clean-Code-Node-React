@@ -28,8 +28,8 @@ const SignUp: React.FC<Props> = ({ validation, addAccount }: Props) => {
     setState({
       ...state,
       nameError: validation.validate('name', state.name),
-      emailError: validation.validate('name', state.email),
-      passwordError: validation.validate('name', state.password),
+      emailError: validation.validate('email', state.email),
+      passwordError: validation.validate('password', state.password),
       passwordConfirmationError: validation.validate('passwordConfirmation', state.passwordConfirmation)
     })
   }, [state.name, state.email, state.password, state.passwordConfirmation])
@@ -38,11 +38,12 @@ const SignUp: React.FC<Props> = ({ validation, addAccount }: Props) => {
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault()
+    // TODO: validar os parametros name e passwordConfirmation
     if (state.isLoading || state.emailError || state.passwordError) {
       return
     }
     setState({ ...state, isLoading: true })
-    const account = await addAccount.add({
+    await addAccount.add({
       name: state.name,
       email: state.email,
       password: state.password,
