@@ -19,7 +19,8 @@ const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   const addAccountSpy = new AddAccountSpy()
   validationStub.errorMessage = params?.validationError
-  const sut = render(<SignUp validation={validationStub} addAccount={addAccountSpy}/>)
+  const sut = render(<SignUp validation={validationStub}
+    addAccount={addAccountSpy}/>)
   return {
     sut,
     addAccountSpy
@@ -137,8 +138,8 @@ describe('Signup Component', () => {
   })
 
   test('Should call AddAccount if forms is invalid', async () => {
-    const { sut, addAccountSpy } = makeSut({ validationError })
-    await Helper.simulateValidSubmit(sut)
+    const { sut, addAccountSpy } = makeSut({ validationError: faker.random.words() })
+    await simulateValidSubmit(sut)
     expect(addAccountSpy.callsCount).toBe(0)
   })
 })
