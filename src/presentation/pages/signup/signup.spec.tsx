@@ -59,4 +59,10 @@ describe('Signup Component', () => {
     Helper.populateField(sut, 'passwordConfirmation')
     Helper.testStatusForField(sut, 'passwordConfirmation', validationError)
   })
+
+  test('Should displayed green ball if the name was correct', () => {
+    const { sut } = makeSut()
+    Helper.populateField(sut, 'name', faker.internet.userName())
+    Helper.testStatusForField(sut, 'name')
+  })
 })
