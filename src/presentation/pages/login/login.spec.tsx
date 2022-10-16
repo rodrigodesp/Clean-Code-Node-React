@@ -1,26 +1,11 @@
 import { InvalidCredentialsError } from '@/domain/errors/invalid-credentials-error'
-
-import {
-  ValidationStub,
-  AuthenticationSpy,
-  SaveAccessTokenMock,
-  Helper
-} from '@/presentation/test'
-
-import {
-  cleanup,
-  fireEvent,
-  render,
-  RenderResult,
-  screen,
-  waitFor
-} from '@testing-library/react'
-
+import { ValidationStub, AuthenticationSpy, SaveAccessTokenMock, Helper } from '@/presentation/test'
+import { Login } from '@/presentation/pages'
+import { cleanup, fireEvent, render, RenderResult, screen, waitFor } from '@testing-library/react'
 import { faker } from '@faker-js/faker'
 import { createMemoryHistory } from 'history'
 import React from 'react'
 import { Router } from 'react-router-dom'
-import { Login } from '@/presentation/pages'
 
 type SutTypes = {
   sut: RenderResult
