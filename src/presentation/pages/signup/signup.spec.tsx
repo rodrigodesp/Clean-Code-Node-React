@@ -1,9 +1,10 @@
-import { cleanup, fireEvent, render, RenderResult, waitFor } from '@testing-library/react'
+import { cleanup, fireEvent, render, RenderResult, screen, waitFor } from '@testing-library/react'
 import { createMemoryHistory } from 'history'
 import { SignUp } from '@/presentation/pages'
 import { Helper, ValidationStub, AddAccountSpy } from '@/presentation/test'
 import React from 'react'
 import { faker } from '@faker-js/faker'
+import { EmailInUseError } from '@/domain/errors/email-in-use-error'
 
 type SutTypes = {
   sut: RenderResult
@@ -141,5 +142,20 @@ describe('Signup Component', () => {
     const { sut, addAccountSpy } = makeSut({ validationError: faker.random.words() })
     await simulateValidSubmit(sut)
     expect(addAccountSpy.callsCount).toBe(0)
+  })
+
+  test('Should present error if addAccount fails', async () => {
+    const { sut, addAccountSpy } = makeSut()
+    const error = new EmailInUseError()
+    jest
+      .spyOn(addAccountSpy, 'add')
+      .mockReturnValueOnce(Promise.reject(error))
+    await Helper.simulateValidSubmit(sut)
+
+    await waitFor(() => screen.getByTestId('main-error'))
+    const mainError = sut.getByTestId('main-error')
+    expect(mainError.textContent).toBe(error.message)
+
+    Helper.testChildCount(sut, 'error-wrap', 1)
   })
 })
