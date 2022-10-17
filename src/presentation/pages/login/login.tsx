@@ -1,5 +1,6 @@
 import { Authentication, SaveAccessToken } from '@/domain/usecases'
 import { Footer, FormStatus, Header, Input } from '@/presentation/components/'
+import SubmitButton from '@/presentation/components/submit-button/submit-button'
 import FormContext from '@/presentation/context/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
 import React, { useEffect, useState } from 'react'
@@ -20,6 +21,7 @@ const Login: React.FC<Props> = ({
   const navigate = useNavigate()
   const [state, setState] = useState({
     isLoading: false,
+    isFormInvalid: true,
     email: '',
     password: '',
     emailError: '',
@@ -27,10 +29,13 @@ const Login: React.FC<Props> = ({
     mainError: ''
   })
   useEffect(() => {
+    const emailError = validation.validate('email', state.email)
+    const passwordError = validation.validate('password', state.password)
     setState({
       ...state,
-      emailError: validation.validate('email', state.email),
-      passwordError: validation.validate('password', state.password)
+      emailError,
+      passwordError,
+      isFormInvalid: !!emailError || !!passwordError
     })
   }, [state.email, state.password])
 
@@ -39,7 +44,7 @@ const Login: React.FC<Props> = ({
   ): Promise<void> => {
     event.preventDefault()
     try {
-      if (state.isLoading || state.emailError || state.passwordError) {
+      if (state.isLoading || state.isFormInvalid) {
         return
       }
       setState({ ...state, isLoading: true })
@@ -66,9 +71,7 @@ const Login: React.FC<Props> = ({
           <h2>Login</h2>
           <Input type="email" name="email" placeholder="Digite seu e-mail" />
           <Input type="password" name="password" placeholder="Digite sua senha"/>
-          <button data-testid="submit" className={Styles.submit}
-            disabled={!!state.emailError || !!state.passwordError}
-            type="submit">Entrar</button>
+          <SubmitButton text="Entrar" />
           <Link data-testid="signup-link" to="/signup" className={Styles.link}>
             Criar Conta
           </Link>

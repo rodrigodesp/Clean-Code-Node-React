@@ -20,20 +20,7 @@
             color: $primaryDark;
             text-align: center;
             font-size: 20px;
-            text-transform: uppercase;                
-        }
-
-        .submit {
-            margin-top: 32px;
-
-            &:disabled {
-                background-color: $disablaedBackground;
-                color: $disablaedColor;
-            }
-
-            &:hover {
-                opacity: 1;
-            }
+            text-transform: uppercase;        
         }
 
         .link {
