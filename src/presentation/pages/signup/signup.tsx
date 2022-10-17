@@ -1,6 +1,5 @@
 import { AddAccount, SaveAccessToken } from '@/domain/usecases'
-import { Footer, FormStatus, Header, Input } from '@/presentation/components/'
-import SubmitButton from '@/presentation/components/submit-button/submit-button'
+import { Footer, FormStatus, Header, Input, SubmitButton } from '@/presentation/components/'
 import FormContext from '@/presentation/context/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
 import React, { useEffect } from 'react'
