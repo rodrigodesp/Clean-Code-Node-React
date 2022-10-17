@@ -6,11 +6,58 @@ Descrição curta do projeto. Sua introdução deve ter cerca de 2 ou 3 linhas. 
 
 ## 🔧 Funçoes (opcional)
 
+[code]
+{
+"workbench.colorTheme": "One Dark Pro Darker",
+"editor.formatOnSave": true,
+"json.schemas": [],
+"editor.defaultFormatter": "esbenp.prettier-vscode",
+"[javascript]": {
+"editor.defaultFormatter": "esbenp.prettier-vscode"
+},
+"editor.guides.bracketPairs": "active",
+"emmet.triggerExpansionOnTab": true,
+"emmet.includeLanguages": {
+"javascript": "javascriptreact",
+"vue-html": "html",
+"razor": "html",
+"plaintext": "jade",
+"vue": "html",
+"typescript": "javascript"
+},
+"workbench.iconTheme": "material-icon-theme",
+"editor.inlineSuggest.enabled": true,
+"plantuml.diagramsRoot": "docs/diagrams/src",
+"plantuml.exportOutDir": "docs/diagrams/out",
+"plantuml.includepaths": ["docs/diagrams/style", "docs/diagrams/src"],
+"files.associations": {
+"\*.plantuml": "plantuml"
+},
+"diffEditor.renderSideBySide": false,
+"emmet.preferences": {
+"css.completions": true,
+"javascript.completions": true,
+"jsx.completions": true,
+"jsx-attributes.completions": true,
+"html.completions": true,
+"html.stylesheetCompletions": true,
+"html.includeLanguages": {
+"javascript": "javascriptreact"
+}
+},
+"editor.codeActionsOnSave": {
+"source.fixAll.eslint": true
+}
+}
+[code]
+
 ### Função 01:
+
 - Lista de imagens para readme
   - https://github.com/Ileriayo/markdown-badges
 
 ### Função 02:
+
 - Descrição Da Função
 
 ## Download
@@ -38,6 +85,7 @@ Para ver o desenvolvimento mais detalhado acesse o devlog:
 [![Devlog](https://img.shields.io/badge/Devlog-999999?style=for-the-badge&logo=Files&logoColor=white)](https://gist.github.com/seu-usuario/sua-gist-ou-readme)
 
 ## Feito Com:
+
 [![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://www.microsoft.com/pt-br/windows/get-windows-10)
 [![IDE](https://img.shields.io/badge/Visual_studio_code-0078D4?style=for-the-badge&logo=visual%20studio%20code&logoColor=white)](https://code.visualstudio.com/)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/pt-BR/docs/Web/HTML)
@@ -51,13 +99,14 @@ Projeto aberto para ajuda!
 
 Lembre de seguir os requisitos da licensa...
 
-[![Manual](https://img.shields.io/badge/Manual-999999?style=for-the-badge&logo=BookStack&logoColor=white
-)](https://github.com/seu-usuario/seu-repositorio/manual.md)
+[![Manual](https://img.shields.io/badge/Manual-999999?style=for-the-badge&logo=BookStack&logoColor=white)](https://github.com/seu-usuario/seu-repositorio/manual.md)
 
 ## 🔖 Licensa
+
 [![LICENSA](https://img.shields.io/badge/Custom_GPL_3.0-E58080?style=for-the-badge&logo=bookstack&logoColor=white)](/LICENSE)
 
 ## 💰 Donate
+
 [![Amazon Pay](https://img.shields.io/badge/AmazonPay-ff9900.svg?style=for-the-badge&logo=Amazon-Pay&logoColor=white)](https://link-da-sua-pagina)
 [![Apple Pay](https://img.shields.io/badge/ApplePay-000000.svg?style=for-the-badge&logo=Apple-Pay&logoColor=white)](https://link-da-sua-pagina)
 [![Ko-fi Badge](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/seu-usuario)
