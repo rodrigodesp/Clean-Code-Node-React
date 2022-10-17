@@ -36,15 +36,6 @@ export const testElementText = (sut: RenderResult, fieldName: string, text: stri
   expect(el.textContent).toBe(text)
 }
 
-export const compareFields = (sut: RenderResult, password = faker.internet.password(), passwordConfirmation = faker.internet.password()): void => {
-  populateField(sut, 'password', password)
-  populateField(sut, 'passwordConfirmation', passwordConfirmation)
-
-  const el = sut.getByTestId('password')
-  const el2 = sut.getByTestId('passwordConfirmation')
-  expect(el.textContent).toEqual(el2.textContent)
-}
-
 export const testButtonIsDisabled = (sut: RenderResult, fieldName: string, isDisabled: boolean): void => {
   const button = sut.getByTestId(fieldName) as HTMLButtonElement
   expect(button.disabled).toBe(isDisabled)
